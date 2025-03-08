@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morhover Design Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Mono', monospace;
+        }
+        
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            overflow: hidden;
+            cursor: none;
+        }
+        
+/* Core container and section fixes */
+html, body {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    touch-action: none;
+}
+
+        .container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    will-change: transform;
+    /* overflow: hidden; */
+    touch-action: none;
+}
+        
+        .section {
+    min-width: 100%;
+    width: 100%;
+    height: 100vh;
+    flex: 0 0 100%; /* Don't grow, don't shrink, fixed width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+        
+        .section-number {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 10vw;
+            opacity: 0.1;
+            font-weight: 900;
+            z-index: -1;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        h1 {
+            font-size: 5vw;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+        
+        h2 {
+            font-size: 2.5vw;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            max-width: 80%;
+        }
+        
+        h3 {
+            font-size: 1.8vw;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            max-width: 60%;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            color: #0f0f0f;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            cursor: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+        
+        .btn:hover {
+            background-color: #cccccc;
+        }
+        
+        /* Fixed indicator at bottom */
+.indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    z-index: 100;
+    pointer-events: auto;
+    padding: 10px 0;
+}
+        
+        .indicator-dot {
+            width: 3rem;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: none;
+            transition: all 0.3s;
+        }
+        
+        .indicator-dot.active {
+            background-color: #ffffff;
+        }
+        
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transition-property: width, height, border;
+        }
+        
+        .cursor-dot {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+        
+        .split {
+            display: flex;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+        
+        .split-column {
+            flex: 1;
+        }
+        
+        .team-member {
+            margin-bottom: 3rem;
+        }
+        
+        .feature-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            width: calc(33.33% - 2rem);
+            margin-bottom: 2rem;
+        }
+        
+        .timeline {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .timeline-item {
+            flex: 1;
+        }
+        
+        .contact-info {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 1rem 0;
+        }
+        
+        .week-section {
+            margin-bottom: 2rem;
+        }
+
+        .feature-item.pill {
+    padding: 1.5rem 2rem;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-item.pill:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-item.pill h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.feature-item.pill p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+}
+
+.feature-item.pill::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.2));
+    transition: width 0.3s ease;
+}
+
+.feature-item.pill:hover::before {
+    width: 100%;
+    opacity: 0.05;
+}
+
+
+/* month pillcss */
+.month-pill {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+/* end month pill css */
+
+.week-pill {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+/* start mobile and table css */
+
+
+/* Mobile and Tablet Responsive Styles */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 8vw;
+    }
+    
+    h2 {
+        font-size: 4.5vw;
+        max-width: 100%;
+    }
+    
+    h3 {
+        font-size: 3.5vw;
+    }
+    
+    p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+    
+    .section {
+        padding: 2rem;
+        overflow-y: auto;
+        justify-content: flex-start;
+        padding-top: 6rem;
+    }
+    
+    .logo {
+        font-size: 0.8rem;
+        top: 1.5rem;
+        left: 1.5rem;
+        z-index: 10;
+    }
+    
+    .section-number {
+        font-size: 15vw;
+        top: 1rem;
+        right: 1rem;
+    }
+    
+    .split {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .feature-list {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .feature-item {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .timeline {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .timeline-item {
+        margin-bottom: 1rem;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .indicator {
+        bottom: 1rem;
+    }
+    
+    .indicator-dot {
+        width: 2rem;
+        height: 2px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 9vw;
+    }
+    
+    .week-section {
+        margin-bottom: 1.5rem;
+    }
+    
+    .price {
+        font-size: 2.5rem;
+    }
+    
+    .cursor, .cursor-dot {
+        display: none; /* Hide custom cursor on touch devices */
+    }
+    
+    body {
+        cursor: auto; /* Restore default cursor */
+    }
+    
+    .feature-item.pill {
+        padding: 1rem 1.5rem;
+    }
+
+
+    .section {
+        padding: 2rem;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+        /* Allow vertical scrolling within each section while maintaining horizontal swipe */
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .container {
+        height: 100%;
+        touch-action: pan-y pinch-zoom;
+    }
+    
+    /* This wrapper prevents unexpected scrolling */
+    #app-wrapper {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+}
+
+/* Touch Swiping Functionality */
+@media (pointer: coarse) {
+    .container {
+        touch-action: pan-y pinch-zoom;
+    }
+    
+    /* Progress bar for Instagram-like story experience */
+    .indicator {
+        width: 90%;
+        max-width: 500px;
+    }
+    
+    .indicator-dot {
+        flex: 1;
+        height: 3px;
+        transition: background-color 0.2s ease;
+    }
+    
+    .indicator-dot.active::after {
+        content: '';
+        display: block;
+        height: 100%;
+        width: 0;
+        background-color: #ffffff;
+        animation: progress 5s linear;
+        animation-play-state: running;
+    }
+    
+    @keyframes progress {
+        0% { width: 0; }
+        100% { width: 100%; }
+    }
+}
+
+/* Adjust the grid for mobile */
+@media (max-width: 768px) {
+    .grid {
+        background-size: 30px 30px;
+    }
+}
+
+/* Fix for very small screens */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 10vw;
+    }
+    
+    .section {
+        padding: 1.5rem;
+        padding-top: 5rem;
+    }
+    
+    .section-number {
+        font-size: 20vw;
+        opacity: 0.05;
+    }
+}
+/* end mobile and table css */
+
+
+
+
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="grid"></div>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    
+    <div class="container">
+        <!-- Slide 01 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">01</div>
+            <h1>Learn, Master, and<br>Reinvent Your<br>Design Journey</h1>
+            <a href="#" class="btn">Register now</a>
+        </section>
+        
+        <!-- Slide 02 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">02</div>
+            <h1>Learn to Unlearn</h1>
+            <p>The world is evolving rapidly, challenging designers to not only learn but also unlearn outdated methods.</p>
+            <p>At Morhover Design Studio, we observed that designers with a solid grasp of fundamentals excel at solving complex problems. Our curriculum focuses on unlearning rigid mindsets and mastering core principles, equipping students for a lifetime of learning and innovation.</p>
+        </section>
+        
+        <!-- Slide 03 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">03</div>
+            <h1>Guidance Awaits</h1>
+            <p>The world around us is changing at an unprecedented pace.</p>
+            
+            <div class="split">
+                <!-- <div class="split-column team-member">
+                    <h3>Helly Kevadiya</h3>
+                    <p>UI UX Designer @Morhover</p>
+                    <p>Helly leverages her keen empathy and user-first approach to deeply understand users' needs, motivations, and pain points. She ensures her designs deliver meaningful solutions that align with user expectations. Her portfolio features a diverse collection of successful projects across various industries, reflecting her versatility and innovative design thinking.</p>
+                </div> -->
+                <div class="split-column team-member">
+                    <h3>Urvik Moradiya</h3>
+                    <p>UI UX Designer at Morhover</p>
+                    <p>Urvik combines creativity with a deep understanding of user needs, motivations, and challenges to craft visually impactful designs. His portfolio highlights a diverse range of successful projects across multiple industries, reflecting his versatility and passion for design.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 04 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">04</div>
+            <h1>Immersive, Hands-On Learning with Continuous Feedback</h1>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h3>No long lectures</h3>
+                    <p>More time to apply their knowledge immediately, ask questions, and seek clarification.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>No online classes</h3>
+                    <p>Fostering a sense of community and teamwork preps students to work with people in a workplace</p>
+                </div>
+                <div class="feature-item">
+                    <h3>No pre recorded videos</h3>
+                    <p>Ask all the questions you have and our faculty would be happy to answer them.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 05 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">05</div>
+            <h1>Who Can Join UX/UI Design?</h1>
+            <p>As a product designer, all you need is curiosity, a passion for learning, and the willingness to unlearn and evolve constantly.</p>
+           
+            
+            <div class="feature-list">
+                <div class="feature-item pill">
+                    <h3>Students & Freshers</h3>
+                    
+                </div>
+                <div class="feature-item pill">
+                    <h3>Software Engineer</h3>
+                    
+                </div>
+                <div class="feature-item pill">
+                    <h3>Interior Designer</h3>
+                </div>
+                <div class="feature-item pill">
+                    <h3>Project manager</h3>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 06 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">06</div>
+            <h1>4 months Learning Plan</h1>
+            <h2>Master the Fundamentals. Step into the Industry with Confidence.</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3 class="month-pill">Month 1</h3>
+                    <h3>Design Foundation</h3>
+                    <p>Master core design principles to build a strong foundation for creative problem-solving.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="month-pill">Month 2,3</h3>
+                    <h3>A Complete Design Workflow</h3>
+                    <p>A step-by-step process from understanding users to creating interactive, high-fidelity prototypes.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="month-pill">Month 4</h3>
+                    <h3>Projects & Portfolio</h3>
+                    <p>Build real-world projects and craft a portfolio that showcases your design expertise.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 07 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">07</div>
+            <h1>Unlearn and Relearn</h1>
+            <h2>A syllabus shaped by real-world design experience</h2>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 1</h3>
+                <h3>Introduction to UI/UX & Design Thinking</h3>
+                <p>Learn the basics of UI vs UX, explore Design Thinking, and master key UX processes like Research, Competitive Analysis, User Personas, User Journey Mapping, and Information Architecture to build intuitive and user-centric designs.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 08 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">08</div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 2</h3>
+                <h3>UX Research & Information Architecture</h3>
+                <p>Enhancing user experiences with clear UX writing, data-driven usability testing, seamless user flows, accessibility-focused design, and a strategic content approach for better engagement and clarity.</p>
+            </div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 3</h3>
+                <h3>UI fundamentals & Visual Design</h3>
+                <p>Master Color Theory, Typography, Iconography, Web & Mobile UI Design, and Visual Hierarchy to create intuitive and visually engaging interfaces.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 09 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">09</div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 4</h3>
+                <h3>Advanced Prototyping & Design Systems</h3>
+                <p>Master high-fidelity prototyping, design systems, Figma components, and atomic design principles for seamless, scalable UI.</p>
+            </div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 5</h3>
+                <h3>Advanced Ui/UX topics</h3>
+                <p>Master Heuristic Evaluation, A/B Testing, UX Psychology, Emotional Design, and Usability Testing to refine user experiences with data-driven and psychology-backed design strategies.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 10 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">10</div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 6</h3>
+                <h3>Micro interaction & Motion UI</h3>
+                <p>Enhancing UX with Microinteractions, Motion UI, Accessibility Testing, and Interactive UI Design for seamless, engaging experiences.</p>
+            </div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 7-8</h3>
+                <h3>Hands-on Projects (Web and Mobile Design)</h3>
+                <p>Hands-on Web & Mobile Design Projects | Advanced UX (SaaS, AI, AR/VR, Gamification, Ethics) | Mobile UX (Navigation, UI Patterns, Dark Mode, Material Design)</p>
+            </div>
+        </section>
+        
+        <!-- Slide 11 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">11</div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 9-12</h3>
+                <h3>Specialized topic</h3>
+                <p>Focus on e-commerce UX/UI, user research, data-driven design, business strategies, and building a strong portfolio with personal branding.</p>
+            </div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 13</h3>
+                <h3>Advanced Prototyping</h3>
+                <p>Mastering advanced prototyping, staying ahead with UI/UX trends, refining designs through reviews, and finalizing your portfolio for success.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 12 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">12</div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 14-15</h3>
+                <h3>Complex design system</h3>
+                <p>Mastering complex design systems, preparing for UI/UX job market through interview prep, networking, and design strategy. Focus on problem-solving, scalability, and designing for intricate systems.</p>
+            </div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 16</h3>
+                <h3>Final Review & Portfolio</h3>
+                <p>Final Review & Portfolio - Job search tactics, portfolio enhancement, and mock interviews to ace your career launch.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 13 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">13</div>
+            
+            <div class="week-section">
+                <h3 class="week-pill">Week 17-24</h3>
+                <h3>Internship (Final Project review & Portfolio Completion)</h3>
+                <p>Focus on research, design, prototyping, usability testing, and collaboration. You'll work on real-world projects, finalize designs, and present your portfolio for feedback.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 14 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">14</div>
+            <h1>When & Where</h1>
+            <h3>Surat</h3>
+            <p>Classes in July</p>
+            <p>210, 4th Floor, Skyzone Shopping Center, Surat, Gujarat 395004</p>
+            <a href="#" class="btn">Get Direction</a>
+            
+            <div class="price">₹70,000</div>
+            <p>*inclusive of GST | Early Bird Offer</p>
+        </section>
+        
+        <!-- Slide 15 -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">15</div>
+            <h1>Still have more questions?</h1>
+            <p>Write to us - morhover@gmail.com</p>
+        </section>
+        
+        <!-- Slide 16 - Extra contact slide -->
+        <section class="section">
+            <div class="logo">Morhover design academy</div>
+            <div class="section-number">16</div>
+            <h1>Join Our Design Community</h1>
+            <p>Transform your design skills and career with our immersive program.</p>
+            <a href="#" class="btn">Apply Now</a>
+            
+            <div class="contact-info">
+                <p>Follow us on social media for design insights and updates</p>
+                <p>Contact: +91 8780108264</p>
+                <p>Email: morhover@gmail.com</p>
+            </div>
+        </section>
+    </div>
+    
+    <div class="indicator">
+        <div class="indicator-dot active"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+    </div>
+    <script>
+// Define variables for all script functionality
+let currentSection = 0;
+const sections = document.querySelectorAll('.section');
+const container = document.querySelector('.container');
+const dots = document.querySelectorAll('.indicator-dot');
+
+// Smooth scrolling functionality
+let isScrolling = false;
+let scrollStartTime = 0;
+let scrollDuration = 1000; // Duration in milliseconds (1 second)
+
+function smoothScrollTo(targetSection) {
+    if (isScrolling) return;
+    
+    isScrolling = true;
+    scrollStartTime = performance.now();
+    
+    const startPosition = currentSection * 100;
+    const targetPosition = targetSection * 100;
+    const distance = targetPosition - startPosition;
+    
+    function animateScroll(currentTime) {
+        const elapsed = currentTime - scrollStartTime;
+        const progress = Math.min(elapsed / scrollDuration, 1);
+        
+        // Use easeInOutCubic easing function for smooth motion
+        const easeProgress = progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+            
+        const currentPosition = startPosition + (distance * easeProgress);
+        
+        container.style.transform = `translateX(-${currentPosition}vw)`;
+        
+        // Update indicators
+        dots.forEach((dot, index) => {
+            if (index === targetSection) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+        
+        if (progress < 1) {
+            requestAnimationFrame(animateScroll);
+        } else {
+            currentSection = targetSection;
+            isScrolling = false;
+        }
+    }
+    
+    requestAnimationFrame(animateScroll);
+}
+
+// Debounce wheel events to prevent rapid firing
+let wheelThrottle = false;
+let wheelDirection = 0;
+let wheelDelayTimeout;
+
+window.addEventListener('wheel', (e) => {
+    // Track direction of wheel movement
+    wheelDirection = e.deltaY > 0 ? 1 : -1;
+    
+    // Clear any pending timeouts
+    clearTimeout(wheelDelayTimeout);
+    
+    // Only process after small delay and if not currently scrolling
+    if (!wheelThrottle && !isScrolling) {
+        wheelThrottle = true;
+        
+        // Apply direction to determine next section
+        const nextSection = Math.max(0, Math.min(sections.length - 1, 
+            currentSection + wheelDirection));
+            
+        if (nextSection !== currentSection) {
+            smoothScrollTo(nextSection);
+        }
+        
+        // Reset throttle after a delay
+        setTimeout(() => {
+            wheelThrottle = false;
+        }, 250); // Wait before accepting another wheel event
+    }
+    
+    // Set a timeout to actually perform the scroll action
+    wheelDelayTimeout = setTimeout(() => {
+        // This prevents small accidental wheel movements from triggering scrolls
+    }, 50);
+});
+
+// Update keyboard navigation to use smooth scrolling
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && currentSection < sections.length - 1) {
+        smoothScrollTo(currentSection + 1);
+    } else if (e.key === 'ArrowLeft' && currentSection > 0) {
+        smoothScrollTo(currentSection - 1);
+    }
+});
+
+// Indicator dots navigation
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        smoothScrollTo(index);
+    });
+});
+
+// Custom cursor
+const cursor = document.querySelector('.cursor');
+const cursorDot = document.querySelector('.cursor-dot');
+
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    cursorDot.style.left = e.clientX + 'px';
+    cursorDot.style.top = e.clientY + 'px';
+});
+
+document.addEventListener('mousedown', () => {
+    cursor.style.width = '15px';
+    cursor.style.height = '15px';
+    cursor.style.borderWidth = '3px';
+});
+
+document.addEventListener('mouseup', () => {
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
+    cursor.style.borderWidth = '2px';
+});
+
+// Touch swipe navigation for mobile devices
+let touchStartX = 0;
+let touchEndX = 0;
+const swipeThreshold = 50; // Minimum distance required for a swipe
+
+// Add touch event listeners to the container
+container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    // Prevent default to stop any scrolling behavior
+    e.preventDefault();
+}, { passive: false });
+
+container.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+    // Prevent default to stop any scrolling behavior
+    e.preventDefault(); 
+}, { passive: false });
+
+// Handle the swipe direction and navigate accordingly
+function handleSwipe() {
+    // Calculate the distance of the swipe
+    const swipeDistance = touchEndX - touchStartX;
+    
+    // Ignore small movements (not intentional swipes)
+    if (Math.abs(swipeDistance) < swipeThreshold) return;
+    
+    // Determine swipe direction and navigate if not currently scrolling
+    if (!isScrolling) {
+        if (swipeDistance > 0 && currentSection > 0) {
+            // Swipe right to go to previous slide
+            smoothScrollTo(currentSection - 1);
+        } else if (swipeDistance < 0 && currentSection < sections.length - 1) {
+            // Swipe left to go to next slide
+            smoothScrollTo(currentSection + 1);
+        }
+    }
+}
+
+// Prevent ALL default touch behavior on the container to fix the swiping issue
+container.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+}, { passive: false });
+    </script>
+
+
+</body>
+</html>
