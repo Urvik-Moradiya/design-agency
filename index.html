@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Morhover Design Academy</title>
     <style>
         * {
@@ -30,17 +30,16 @@ html, body {
     touch-action: none;
 }
 
-        .container {
+.container {
     display: flex;
     height: 100vh;
     width: 100%;
     transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     will-change: transform;
-    /* overflow: hidden; */
     touch-action: none;
 }
         
-        .section {
+.section {
     min-width: 100%;
     width: 100%;
     height: 100vh;
@@ -52,7 +51,7 @@ html, body {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-            padding:26px;
+    padding: 26px;
 }
         
         .section-number {
@@ -312,69 +311,17 @@ html, body {
 
 
 /* Mobile and Tablet Responsive Styles */
+/* Replace your current mobile and tablet CSS with this */
+
+/* Mobile and Tablet Responsive Styles */
 @media (max-width: 1024px) {
-    h1 {
-        font-size: 8vw;
-    }
+    /* Keep these style adjustments for font sizing */
+    h1 { font-size: 8vw; }
+    h2 { font-size: 4.5vw; max-width: 100%; }
+    h3 { font-size: 3.5vw; }
+    p { font-size: 1rem; max-width: 100%; }
     
-    h2 {
-        font-size: 4.5vw;
-        max-width: 100%;
-    }
-    
-    h3 {
-        font-size: 3.5vw;
-    }
-    
-    p {
-        font-size: 1rem;
-        max-width: 100%;
-    }
-    
-    .section {
-        padding: 2rem;
-        overflow-y: auto;
-        justify-content: flex-start;
-        padding-top: 6rem;
-    }
-    
-    .logo {
-        font-size: 0.8rem;
-        top: 1.5rem;
-        left: 1.5rem;
-        z-index: 10;
-    }
-    
-    .section-number {
-        font-size: 15vw;
-        top: 1rem;
-        right: 1rem;
-    }
-    
-    .split {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .feature-list {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .feature-item {
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-    
-    .timeline {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .timeline-item {
-        margin-bottom: 1rem;
-    }
-    
+    /* Adjust button and indicators for smaller screens */
     .btn {
         padding: 0.8rem 1.5rem;
         font-size: 0.9rem;
@@ -388,119 +335,108 @@ html, body {
         width: 2rem;
         height: 2px;
     }
+    
+    /* Important: Don't change these section properties */
+    .section {
+        min-width: 100%;
+        width: 100%;
+        height: 100vh;
+        flex: 0 0 100%;
+        padding: 2rem;
+    }
+    
+    /* Keep logo and section number visible */
+    .logo {
+        font-size: 0.8rem;
+        top: 1.5rem;
+        left: 1.5rem;
+        z-index: 10;
+    }
+    
+    .section-number {
+        font-size: 15vw;
+        top: 1rem;
+        right: 1rem;
+    }
 }
 
+/* Smaller mobile adjustments - keep horizontal scroll intact */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 9vw;
-    }
+    h1 { font-size: 9vw; }
     
-    .week-section {
-        margin-bottom: 1.5rem;
-    }
+    .week-section { margin-bottom: 1.5rem; }
+    .price { font-size: 2.5rem; }
     
-    .price {
-        font-size: 2.5rem;
-    }
-    
+    /* Hide custom cursor on touch devices */
     .cursor, .cursor-dot {
-        display: none; /* Hide custom cursor on touch devices */
+        display: none;
     }
     
     body {
-        cursor: auto; /* Restore default cursor */
+        cursor: auto;
     }
     
     .feature-item.pill {
         padding: 1rem 1.5rem;
     }
-
-
+    
+    /* CRITICAL: Keep horizontal slide layout */
     .section {
+        min-width: 100%;
+        height: 100vh;
         padding: 2rem;
+        /* Adjust internal spacing */
         padding-top: 5rem;
-        padding-bottom: 5rem;
-        /* Allow vertical scrolling within each section while maintaining horizontal swipe */
-        height: 100%;
-        overflow-y: auto;
-    }
-
-    .container {
-        height: 100%;
-        touch-action: pan-y pinch-zoom;
+        padding-bottom: 3rem;
     }
     
-    /* This wrapper prevents unexpected scrolling */
-    #app-wrapper {
-        position: fixed;
+    /* CRITICAL: Keep horizontal container layout */
+    .container {
+        display: flex;
+        flex-direction: row;
         width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-
-}
-
-/* Touch Swiping Functionality */
-@media (pointer: coarse) {
-    .container {
-        touch-action: pan-y pinch-zoom;
+        height: 100vh;
+        /* overflow-x: hidden; */
+        /* Allow zooming/scaling */
+        transform: scale(1);
+        transform-origin: top left;
     }
     
-    /* Progress bar for Instagram-like story experience */
+    /* Keep indicator for navigation */
     .indicator {
-        width: 90%;
-        max-width: 500px;
+        display: flex;
     }
     
-    .indicator-dot {
-        flex: 1;
-        height: 3px;
-        transition: background-color 0.2s ease;
-    }
-    
-    .indicator-dot.active::after {
-        content: '';
-        display: block;
-        height: 100%;
-        width: 0;
-        background-color: #ffffff;
-        animation: progress 5s linear;
-        animation-play-state: running;
-    }
-    
-    @keyframes progress {
-        0% { width: 0; }
-        100% { width: 100%; }
-    }
-}
-
-/* Adjust the grid for mobile */
-@media (max-width: 768px) {
+    /* Adjust grid for mobile */
     .grid {
         background-size: 30px 30px;
+    }
+    
+    /* Allow content to scroll within sections if needed */
+    .section-content {
+        overflow-y: auto;
+        height: 100%;
+        padding-bottom: 2rem;
     }
 }
 
 /* Fix for very small screens */
 @media (max-width: 480px) {
-    h1 {
-        font-size: 10vw;
-    }
+    h1 { font-size: 10vw; }
+    .section-number { font-size: 20vw; opacity: 0.05; }
     
-    .section {
-        padding: 1.5rem;
-        padding-top: 5rem;
-    }
-    
-    .section-number {
-        font-size: 20vw;
-        opacity: 0.05;
+    /* Scale down the entire container to fit small screens */
+    .container {
+        transform: scale(0.9);
     }
 }
-/* end mobile and table css */
 
-
-
+/* Ensure landscape view maintains proportions */
+@media (max-width: 768px) and (orientation: landscape) {
+    .container {
+        height: 100vh;
+    }
+}
 
 
     </style>
@@ -516,23 +452,32 @@ html, body {
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">01</div>
+
+            <div class="section-inner">
+                <div class="section-content">
             <h1>Learn, Master, and<br>Reinvent Your<br>Design Journey</h1>
             <a href="#" class="btn">Register now</a>
+            </div></div>
         </section>
         
         <!-- Slide 02 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">02</div>
+            <div class="section-inner">
+                <div class="section-content">
             <h1>Learn to Unlearn</h1>
             <p>The world is evolving rapidly, challenging designers to not only learn but also unlearn outdated methods.</p>
             <p>At Morhover Design Studio, we observed that designers with a solid grasp of fundamentals excel at solving complex problems. Our curriculum focuses on unlearning rigid mindsets and mastering core principles, equipping students for a lifetime of learning and innovation.</p>
+        </div></div>
         </section>
         
         <!-- Slide 03 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">03</div>
+            <div class="section-inner">
+                <div class="section-content">
             <h1>Guidance Awaits</h1>
             <p>The world around us is changing at an unprecedented pace.</p>
             
@@ -548,12 +493,15 @@ html, body {
                     <p>Urvik combines creativity with a deep understanding of user needs, motivations, and challenges to craft visually impactful designs. His portfolio highlights a diverse range of successful projects across multiple industries, reflecting his versatility and passion for design.</p>
                 </div>
             </div>
+        </div></div>
         </section>
         
         <!-- Slide 04 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">04</div>
+            <div class="section-inner">
+                <div class="section-content">
             <h1>Immersive, Hands-On Learning with Continuous Feedback</h1>
             
             <div class="feature-list">
@@ -570,12 +518,15 @@ html, body {
                     <p>Ask all the questions you have and our faculty would be happy to answer them.</p>
                 </div>
             </div>
+        </div></div>
         </section>
         
         <!-- Slide 05 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">05</div>
+            <div class="section-inner">
+                <div class="section-content">
             <h1>Who Can Join UX/UI Design?</h1>
             <p>As a product designer, all you need is curiosity, a passion for learning, and the willingness to unlearn and evolve constantly.</p>
            
@@ -596,12 +547,15 @@ html, body {
                     <h3>Project manager</h3>
                 </div>
             </div>
+        </div></div>
         </section>
         
         <!-- Slide 06 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">06</div>
+            <div class="section-inner">
+                <div class="section-content">
             <h1>4 months Learning Plan</h1>
             <h2>Master the Fundamentals. Step into the Industry with Confidence.</h2>
             
@@ -622,12 +576,15 @@ html, body {
                     <p>Build real-world projects and craft a portfolio that showcases your design expertise.</p>
                 </div>
             </div>
+        </div></div>
         </section>
         
         <!-- Slide 07 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">07</div>
+            <div class="section-inner">
+                <div class="section-content">
             <h1>Unlearn and Relearn</h1>
             <h2>A syllabus shaped by real-world design experience</h2>
             
@@ -636,13 +593,15 @@ html, body {
                 <h3>Introduction to UI/UX & Design Thinking</h3>
                 <p>Learn the basics of UI vs UX, explore Design Thinking, and master key UX processes like Research, Competitive Analysis, User Personas, User Journey Mapping, and Information Architecture to build intuitive and user-centric designs.</p>
             </div>
+            </div></div>
         </section>
         
         <!-- Slide 08 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">08</div>
-            
+            <div class="section-inner">
+                <div class="section-content">
             <div class="week-section">
                 <h3 class="week-pill">Week 2</h3>
                 <h3>UX Research & Information Architecture</h3>
@@ -654,13 +613,15 @@ html, body {
                 <h3>UI fundamentals & Visual Design</h3>
                 <p>Master Color Theory, Typography, Iconography, Web & Mobile UI Design, and Visual Hierarchy to create intuitive and visually engaging interfaces.</p>
             </div>
+        </div></div>
         </section>
         
         <!-- Slide 09 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">09</div>
-            
+            <div class="section-inner">
+                <div class="section-content">
             <div class="week-section">
                 <h3 class="week-pill">Week 4</h3>
                 <h3>Advanced Prototyping & Design Systems</h3>
@@ -672,13 +633,15 @@ html, body {
                 <h3>Advanced Ui/UX topics</h3>
                 <p>Master Heuristic Evaluation, A/B Testing, UX Psychology, Emotional Design, and Usability Testing to refine user experiences with data-driven and psychology-backed design strategies.</p>
             </div>
+            </div></div>
         </section>
         
         <!-- Slide 10 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">10</div>
-            
+            <div class="section-inner">
+                <div class="section-content">
             <div class="week-section">
                 <h3 class="week-pill">Week 6</h3>
                 <h3>Micro interaction & Motion UI</h3>
@@ -690,13 +653,15 @@ html, body {
                 <h3>Hands-on Projects (Web and Mobile Design)</h3>
                 <p>Hands-on Web & Mobile Design Projects | Advanced UX (SaaS, AI, AR/VR, Gamification, Ethics) | Mobile UX (Navigation, UI Patterns, Dark Mode, Material Design)</p>
             </div>
+            </div></div>
         </section>
         
         <!-- Slide 11 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">11</div>
-            
+            <div class="section-inner">
+                <div class="section-content">
             <div class="week-section">
                 <h3 class="week-pill">Week 9-12</h3>
                 <h3>Specialized topic</h3>
@@ -708,13 +673,15 @@ html, body {
                 <h3>Advanced Prototyping</h3>
                 <p>Mastering advanced prototyping, staying ahead with UI/UX trends, refining designs through reviews, and finalizing your portfolio for success.</p>
             </div>
+            </div></div>
         </section>
         
         <!-- Slide 12 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">12</div>
-            
+            <div class="section-inner">
+                <div class="section-content">
             <div class="week-section">
                 <h3 class="week-pill">Week 14-15</h3>
                 <h3>Complex design system</h3>
@@ -726,24 +693,29 @@ html, body {
                 <h3>Final Review & Portfolio</h3>
                 <p>Final Review & Portfolio - Job search tactics, portfolio enhancement, and mock interviews to ace your career launch.</p>
             </div>
+            </div></div>
         </section>
         
         <!-- Slide 13 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">13</div>
-            
+            <div class="section-inner">
+                <div class="section-content">
             <div class="week-section">
                 <h3 class="week-pill">Week 17-24</h3>
                 <h3>Internship (Final Project review & Portfolio Completion)</h3>
                 <p>Focus on research, design, prototyping, usability testing, and collaboration. You'll work on real-world projects, finalize designs, and present your portfolio for feedback.</p>
             </div>
+            </div></div>
         </section>
         
         <!-- Slide 14 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">14</div>
+            <div class="section-inner">
+                <div class="section-content">
             <h1>When & Where</h1>
             <h3>Surat</h3>
             <p>Classes in July</p>
@@ -752,20 +724,27 @@ html, body {
             
             <div class="price">₹70,000</div>
             <p>*inclusive of GST | Early Bird Offer</p>
+            </div></div>
         </section>
         
         <!-- Slide 15 -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">15</div>
+
+            <div class="section-inner">
+                <div class="section-content">
             <h1>Still have more questions?</h1>
             <p>Write to us - morhover@gmail.com</p>
+            </div></div>
         </section>
         
         <!-- Slide 16 - Extra contact slide -->
         <section class="section">
             <div class="logo">Morhover design academy</div>
             <div class="section-number">16</div>
+            <div class="section-inner">
+                <div class="section-content">
             <h1>Join Our Design Community</h1>
             <p>Transform your design skills and career with our immersive program.</p>
             <a href="#" class="btn">Apply Now</a>
@@ -775,6 +754,7 @@ html, body {
                 <p>Contact: +91 8780108264</p>
                 <p>Email: morhover@gmail.com</p>
             </div>
+            </div></div>
         </section>
     </div>
     
@@ -797,6 +777,8 @@ html, body {
         <div class="indicator-dot"></div>
     </div>
     <script>
+// Replace your current JavaScript with this
+
 // Define variables for all script functionality
 let currentSection = 0;
 const sections = document.querySelectorAll('.section');
@@ -926,49 +908,44 @@ document.addEventListener('mouseup', () => {
     cursor.style.borderWidth = '2px';
 });
 
-// Touch swipe navigation for mobile devices
+// Touch and swipe functionality with device detection
 let touchStartX = 0;
 let touchEndX = 0;
-const swipeThreshold = 50; // Minimum distance required for a swipe
 
-// Add touch event listeners to the container
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const swipeDistance = touchEndX - touchStartX;
+    
+    if (swipeDistance < -swipeThreshold && currentSection < sections.length - 1) {
+        // Swipe left -> go right
+        smoothScrollTo(currentSection + 1);
+    } else if (swipeDistance > swipeThreshold && currentSection > 0) {
+        // Swipe right -> go left
+        smoothScrollTo(currentSection - 1);
+    }
+}
+
+// Touch swipe navigation for all devices
 container.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
-    // Prevent default to stop any scrolling behavior
-    e.preventDefault();
-}, { passive: false });
+}, { passive: true });
 
 container.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
-    // Prevent default to stop any scrolling behavior
-    e.preventDefault(); 
-}, { passive: false });
+}, { passive: true });
 
-// Handle the swipe direction and navigate accordingly
-function handleSwipe() {
-    // Calculate the distance of the swipe
-    const swipeDistance = touchEndX - touchStartX;
-    
-    // Ignore small movements (not intentional swipes)
-    if (Math.abs(swipeDistance) < swipeThreshold) return;
-    
-    // Determine swipe direction and navigate if not currently scrolling
-    if (!isScrolling) {
-        if (swipeDistance > 0 && currentSection > 0) {
-            // Swipe right to go to previous slide
-            smoothScrollTo(currentSection - 1);
-        } else if (swipeDistance < 0 && currentSection < sections.length - 1) {
-            // Swipe left to go to next slide
-            smoothScrollTo(currentSection + 1);
-        }
-    }
-}
+// Initial setup for responsive behavior
+window.addEventListener('DOMContentLoaded', () => {
+    // Make sure the first section is active
+    dots[0].classList.add('active');
+});
 
-// Prevent ALL default touch behavior on the container to fix the swiping issue
-container.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-}, { passive: false });
+// Handle window resize to maintain correct position
+window.addEventListener('resize', () => {
+    // Make sure container position is maintained correctly
+    container.style.transform = `translateX(-${currentSection * 100}vw)`;
+});
     </script>
 
 
